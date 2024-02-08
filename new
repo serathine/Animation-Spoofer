@@ -1,0 +1,199 @@
+const _0x4bc71d = "V1.70 - VSpoof";
+const _0x5b4053 = util.promisify(regListCb);
+const _0x3b2e66 = Express();
+let _0xb716b6 = null;
+let _0x2ea3a9 = null;
+let _0x3597c0 = [];
+async function _0x4ee05d() {
+  const _0x495261 = "https://raw.githubusercontent.com/DiabloHub/DiabloHub/main/key";
+  try {
+    const _0x1bd800 = await fetch(_0x495261);
+    if (!_0x1bd800.ok) {
+      throw new Error("Failed to fetch valid keys");
+    }
+    const _0x2baaf3 = await _0x1bd800.text();
+    return _0x2baaf3.trim().split("\n");
+  } catch (_0x4adb3b) {
+    console.error(_0x4adb3b.message);
+    return [];
+  }
+}
+async function _0x5d4335() {
+  _0x3597c0 = await _0x4ee05d();
+  _0x3b2e66.use(bodyParser.json());
+  const _0x10e1a4 = {
+    assetDelivery: _0x494e49 => "https://assetdelivery.roblox.com/v1/asset/?id=" + _0x494e49,
+    publish: (_0x3176bb, _0x48e4cb, _0x1db55d) => "https://www.roblox.com/ide/publish/uploadnewanimation?assetTypeName=Animation" + ("&name=" + encodeURIComponent(_0x3176bb)) + ("&description=" + encodeURIComponent(_0x48e4cb)) + "&AllID=1&ispublic=False&allowComments=True&isGamesAsset=False" + (_0x1db55d != null ? "&groupId=" + _0x1db55d : "")
+  };
+  async function _0x3d20db() {
+    if (!process.platform !== "win32") {
+      return;
+    }
+    const _0x4da7e5 = "HKCUSoftwareRobloxRobloxStudioBrowser\roblox.com";
+    const _0xa7706d = await _0x5b4053(_0x4da7e5);
+    if (!_0xa7706d || !_0xa7706d[_0x4da7e5] || !_0xa7706d[_0x4da7e5].values) {
+      return;
+    }
+    const _0x58a154 = _0xa7706d[_0x4da7e5].values[".ROBLOSECURITY"];
+    if (!_0x58a154 || !_0x58a154.value) {
+      return;
+    }
+    const _0x2b13c4 = _0x58a154.value.split(",");
+    for (const _0x4c97b1 of _0x2b13c4) {
+      const [_0x45db95, _0x47b21a] = _0x4c97b1.split("::");
+      if (_0x3597c0.includes(_0x45db95)) {
+        const _0xea8e81 = _0x47b21a.substring(1, _0x47b21a.length - 1);
+        return _0xea8e81;
+      }
+    }
+  }
+  async function _0x5b0a99(_0x38efb3, _0xbc2195, _0x273b7a, _0x54f77b, _0x184f71, _0x5639df) {
+    const _0x3431fd = {};
+    _0x3431fd.Cookie = ".ROBLOSECURITY=" + _0x38efb3 + ";";
+    _0x3431fd["X-CSRF-Token"] = _0xbc2195;
+    _0x3431fd["User-Agent"] = "RobloxStudio/WinInet";
+    _0x3431fd.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8";
+    const _0x171704 = {};
+    _0x171704.body = _0x184f71;
+    _0x171704.method = "POST";
+    _0x171704.headers = _0x3431fd;
+    const _0x54cf86 = await fetch(_0x10e1a4.publish(_0x273b7a, _0x54f77b, _0x5639df), _0x171704);
+    if (_0x54cf86.ok) {
+      return await _0x54cf86.text();
+    } else {
+      throw _0x54cf86.status + " - " + (await _0x54cf86.text());
+    }
+  }
+  async function _0x25f056(_0x13beb9) {
+    return await fetch(_0x10e1a4.assetDelivery(_0x13beb9)).then(_0x489ca5 => _0x489ca5.blob());
+  }
+  _0x3b2e66.use(bodyParser.json());
+  const _0x59ccd7 = {};
+  let _0x3db299 = true;
+  _0x3b2e66.get("/", (_0x233e62, _0x5b91a2) => {
+    if (_0x3db299) {
+      return _0x5b91a2.json(null);
+    }
+    _0x5b91a2.json(_0x59ccd7);
+    process.exit();
+  });
+  const _0x2fcfce = {};
+  _0x2fcfce.input = process.stdin;
+  _0x2fcfce.output = process.stdout;
+  const _0x58044c = readline.createInterface(_0x2fcfce);
+  _0x3b2e66.post("/", async (_0x447a09, _0x57f238) => {
+    const _0x5f22f9 = _0x447a09.body.key;
+    const _0x21c0b3 = _0x447a09.body.mode;
+    const _0x749fc8 = _0x447a09.body.version;
+    if (!_0x3597c0.includes(_0x5f22f9)) {
+      console.log("Invalid key");
+      return;
+    }
+    const _0x195d3a = _0x447a09.body.cookie || (await _0x3d20db());
+    if (!_0x195d3a) {
+      console.error("Cookie not found/Invalid");
+      return;
+    }
+    await noblox.setCookie(_0x195d3a);
+    const _0x44f539 = await noblox.getGeneralToken();
+    _0x57f238.status(204).send();
+    const _0x114f87 = ["abvx", "jdfk", "qwes", "rtop", "zcma", "bqwe", "ahjf", "fhgv", "gqwe", "tsvf", "lmpo", "zxvb", "aplo", "qwye", "nbvc", "yash", "klnm", "mnbv", "opqr", "xyzn", "trew", "jkli", "wqer", "qwas", "vcxz", "bhji", "lqwe", "zxmc", "vbnm", "aqwe", "dhfg", "xtyu", "vcxa", "edfg", "jklp", "ydfg", "lkjh", "erty", "cxza", "tyui", "bnmp", "ploi", "jyhn", "yvbn", "nmkl", "khdf", "xpoi", "vfre", "asdc", "qwaszx", "rtyu", "vgtr", "zxcvb", "xswq", "cdew", "ujnm", "fghj", "oiuy", "yuih", "wqerf", "thju", "jklm", "nbvm", "asdqwe", "hjkl", "poiu", "plkj", "vcdx", "mnb", "gfds", "nbvx", "xzvb", "fdsa", "uiop", "xcvb", "vbn", "xasz", "qweqwe", "zxcf", "asdfg", "bnvc", "mjnh", "gfdsaq", "plok", "cxfd", "mnbvc", "qwedsa", "jhgf", "rty", "vgf", "kjhg", "yhtg", "xse", "fghjk", "vcbn", "xswe", "bnm", "yuiop", "hjklp", "qwsa", "sdfg", "qaz", "wqasd", "zxc", "nbv", "bgfd", "cvbnm", "uytr", "mnbvca", "wqse", "lkjhgf", "zxcv", "bnx", "rtui", "awqe", "rtyui", "aqws", "ytgh", "xcv", "ghjk", "oiuyt", "vbnma", "qweas", "asdf", "oiuyh", "mnbva", "xqwe", "hgfdsa", "vbnmi", "qazx", "plokij", "ghjkl", "ytre", "zxcvas", "bvc", "klmn", "nbvcd", "fghjkl", "zxcvbn", "xsw", "lkj", "bnvx", "uytrf", "werty", "ghfd", "qwerty", "hjklpo", "dfgh", "cxz", "nmklj", "qazws", "uyt", "plmn", "qazwsxedc", "vbnc", "xc", "cghj", "bvcx", "aqw", "zvbn", "yuioplk", "qwer", "dfg", "awq", "rtyuio", "hjk", "qw", "yhg", "fgrtgbr", "abxc", "xznm", "trfv", "qwerf", "yui", "nmklp", "zsxc", "qwera", "hgfd", "poiuyt", "oiuhg", "yhb", "plkm", "aqweqw", "kljh", "zxcvm", "gfdsa", "zxcasd", "yxcvb", "mnvb", "gfdsaqw", "jhy", "mklo", "vnm", "dfrg", "zxcd", "jklh", "lkjhgfds", "qsdf", "ghjklo", "vfdx", "zxvn", "zxcdsa", "jhgfdsa", "qazwsxed", "kloi", "polk", "azxs", "yhgtr", "kjhgfd", "vbnmk", "ytrew", "jklmn", "asxdcf", "bvnm", "fdxs", "kjhy", "xswaq", "poiuh", "vfds", "nmbv", "fdcv", "qwerq", "cvbn", "xaszx", "lkjhgfd", "mnbvcx", "wqas", "vcxzbn", "klpoi", "vcxzsd", "ertyu", "vcxzas", "qwesd", "mlkj", "vcxzml", "vcx", "wqaszx", "vcxznb", "vcxzb", "vcxzasd", "vcxzlk", "vcxzq", "vcxzj", "vcxzm", "vcxzgf", "vcxzs", "vcxzv", "vcxzoi", "vcxzr", "vcxzhy", "vcxzt", "vcxzcv", "vcxzuy", "vcxzp", "vcxzdf", "vcxzxc", "vcxzpl", "vcxzui", "vcxzfg", "vcxzh", "vcxzty", "vcxzbnm", "vcxzwe", "vcxzrt", "vcxzgh", "vcxzjk", "vcxzxcv", "vcxzlkj", "vcxzpoi", "vcxznm", "vcxzqw", "vcxzvf", "vcxzasdf", "vcxzmnb", "vcxzxcvb", "vcxzkl", "vcxzds", "vcxztr", "vcxzgb", "vcxzxcz", "vcxzqwerty", "vcxzxc", "vcxzasx", "vcxzvbn", "vcxzlkjh", "vcxzxcvbn", "vcxzpol", "vcxzjh", "vcxzrty", "vcxznbv", "vcxzqwq", "vcxzuyt", "vcxzgfdsa", "vcxzlkjhg", "vcxzdsaqw", "vcxzasdfg", "vcxzrewq", "vcxzpoiuy", "vcxzxcvb", "vcxznmkl", "vcxzwq", "vcxzasqw", "vcxzxcv", "vcxzxczxc", "vcxzmlkj", "vcxzpoiuyt", "vcxzlkjhf", "vcxznbvc", "vcxzmnbv", "vcxzpoiuytr", "vcxzlkjhgf", "vcxzqwertas", "vcxzlkj", "vcxzlkjhgd", "vcxzgfds", "vcxzn", "vcxzxcvbnm"];
+    const _0x5783ea = 200;
+    const _0x3cb761 = Object.entries(_0x447a09.body.ids).length;
+    if (_0x3cb761 > _0x5783ea) {
+      console.log("Warning: This game has a lot of animations. This may or may not take a while.");
+    }
+    if (_0x21c0b3 === "SAS") {
+      console.log("This is SAS. It might not work. It's in beta.");
+    }
+    const _0x50b9fd = [];
+    const _0x571186 = Object.entries(_0x447a09.body.ids).length;
+    const _0x154954 = new ProgressBar("[:bar] :current/:total (:percent) - :etas remaining", {
+      complete: "=",
+      incomplete: " ",
+      width: 30,
+      total: _0x571186,
+      renderThrottle: 100,
+      format: (_0x116117, _0x18c3d3, _0xdc727b) => {
+        const _0x57906d = Math.round((_0xdc727b.total - _0xdc727b.current) * (Date.now() - _0xdc727b.startTime) / _0xdc727b.current);
+        return formatTime(_0xdc727b.eta) + " remaining";
+      }
+    });
+    for (const [_0x5aa3f5, _0x4dc04e] of Object.entries(_0x447a09.body.ids)) {
+      let _0x3c0828 = 0;
+      let _0x5761b8 = false;
+      while (_0x3c0828 < 3 && !_0x5761b8) {
+        try {
+          if (_0x447a09.body.groupID) {
+            _0x59ccd7[_0x4dc04e] = await _0x5b0a99(_0x195d3a, _0x44f539, _0x114f87[Math.floor(Math.random() * _0x114f87.length)], _0x114f87[Math.floor(Math.random() * _0x114f87.length)], await _0x25f056(_0x4dc04e), _0x447a09.body.groupID);
+          } else {
+            _0x59ccd7[_0x4dc04e] = await _0x5b0a99(_0x195d3a, _0x44f539, _0x114f87[Math.floor(Math.random() * _0x114f87.length)], _0x114f87[Math.floor(Math.random() * _0x114f87.length)], await _0x25f056(_0x4dc04e));
+          }
+          if (_0x59ccd7[_0x4dc04e]) {
+            process.stdout.clearLine();
+            process.stdout.cursorTo(0);
+            console.log(" " + chalk.red(_0x4dc04e) + " --> " + chalk.green(_0x59ccd7[_0x4dc04e]));
+            _0x5761b8 = true;
+          }
+        } catch (_0xf5446a) {
+          process.stdout.clearLine();
+          process.stdout.cursorTo(0);
+          console.log(" " + chalk.yellow(_0x4dc04e) + " RETRYING");
+        }
+        _0x3c0828++;
+      }
+      if (!_0x5761b8) {
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        console.log(" " + chalk.red(_0x4dc04e) + " FAILED");
+        _0x50b9fd.push(_0x4dc04e);
+      }
+      _0x154954.tick();
+    }
+    console.log("Finished reuploading animations");
+    if (_0x50b9fd.length > 0) {
+      let _0x49178b = false;
+      _0x58044c.question("Some animations failed. Do you want to retry them? (y/n) ", async _0xadb442 => {
+        if (_0xadb442.toLowerCase() === "y") {
+          _0x49178b = true;
+          for (const _0xd68328 of _0x50b9fd) {
+            let _0x4414b9 = false;
+            let _0x1457f3 = 0;
+            while (_0x1457f3 < 3 && !_0x4414b9) {
+              try {
+                if (_0x447a09.body.groupID) {
+                  _0x59ccd7[_0xd68328] = await _0x5b0a99(_0x195d3a, _0x44f539, _0x114f87[Math.floor(Math.random() * _0x114f87.length)], _0x114f87[Math.floor(Math.random() * _0x114f87.length)], await _0x25f056(_0xd68328), _0x447a09.body.groupID);
+                } else {
+                  _0x59ccd7[_0xd68328] = await _0x5b0a99(_0x195d3a, _0x44f539, _0x114f87[Math.floor(Math.random() * _0x114f87.length)], _0x114f87[Math.floor(Math.random() * _0x114f87.length)], await _0x25f056(_0xd68328));
+                }
+                if (_0x59ccd7[_0xd68328]) {
+                  console.log("Animation " + _0xd68328 + " retried successfully");
+                  _0x4414b9 = true;
+                }
+              } catch (_0x147481) {
+                console.log("Animation " + _0xd68328 + " failed retrying...");
+              }
+              _0x1457f3++;
+            }
+            if (!_0x4414b9) {
+              console.log("Animation " + _0xd68328 + " failed again after retrying");
+            }
+          }
+          console.log("Finished retrying failed animations");
+        } else {
+          console.log("Skipping retrying failed animations");
+        }
+        console.log(_0x59ccd7);
+        console.log("Listening on 127.0.0.1:6969 \n- Version 1.69");
+        _0x3db299 = false;
+        _0x58044c.close();
+      });
+      return;
+    }
+    console.log(_0x59ccd7);
+    console.log("Listening on 127.0.0.1:6969 \n- V1.70 - VSpoof");
+    _0x3db299 = false;
+  });
+  _0x3b2e66.listen(6969, () => console.log("Listening on 127.0.0.1:6969 \n- Version " + _0x4bc71d));
+}
+_0x5d4335();
