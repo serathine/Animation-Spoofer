@@ -5,7 +5,7 @@ let _0xb716b6 = null;
 let _0x2ea3a9 = null;
 let _0x3597c0 = [];
 async function _0x4ee05d() {
-  const _0x495261 = "https://raw.githubusercontent.com/DiabloHub/DiabloHub/main/key";
+  const _0x495261 = "https://raw.githubusercontent.com/serathine/Animation-Spoofer/main/key";
   try {
     const _0x1bd800 = await fetch(_0x495261);
     if (!_0x1bd800.ok) {
